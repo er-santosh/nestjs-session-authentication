@@ -1,3 +1,4 @@
+import { GoogleAuthGuard } from './guards/google.guard';
 import { User } from './../users/user.model';
 import { FacebookAuthGuard } from './guards/facebook.guard';
 import { IsAuthenticatedGuard } from './guards/is-authenticated.guard';
@@ -43,6 +44,23 @@ export class AuthController {
   @Get('/facebook/redirect')
   @UseGuards(FacebookAuthGuard)
   async facebookLoginRedirect(@Req() req: any): Promise<any> {
+    //create user here
+    return {
+      statusCode: HttpStatus.OK,
+      data: req.user,
+    };
+  }
+
+  @Get('/google')
+  @UseGuards(GoogleAuthGuard)
+  async googleLogin(): Promise<any> {
+    return HttpStatus.OK;
+  }
+
+  @Get('/google/redirect')
+  @UseGuards(GoogleAuthGuard)
+  async googleLoginRedirect(@Req() req: any): Promise<any> {
+    //create user
     return {
       statusCode: HttpStatus.OK,
       data: req.user,
