@@ -1,3 +1,5 @@
+import { ConfigModule } from '@nestjs/config';
+import { FacebookStrategy } from './strategies/facebook.strategy';
 import { SessionSerializer } from './serializers/session.serializer';
 import { LocalStrategy } from './strategies/local.strategy';
 import { UsersModule } from './../users/users.module';
@@ -7,8 +9,12 @@ import { AuthController } from './auth.controller';
 import { PassportModule } from '@nestjs/passport';
 
 @Module({
-  imports: [UsersModule, PassportModule.register({ session: true })],
-  providers: [AuthService, LocalStrategy, SessionSerializer],
+  imports: [
+    UsersModule,
+    PassportModule.register({ session: true }),
+    ConfigModule,
+  ],
+  providers: [AuthService, LocalStrategy, SessionSerializer, FacebookStrategy],
   controllers: [AuthController],
 })
 export class AuthModule {}
